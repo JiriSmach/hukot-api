@@ -18,6 +18,7 @@ abstract class AbstractEmail implements EmailInterface
     protected int $spamHiTreshold;
     protected bool $dropHiScoringSpam;
     protected array $blacklist;
+
     public function getName(): string
     {
         return $this->name;
