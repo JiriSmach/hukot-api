@@ -81,7 +81,7 @@ class Email
      */
     public function createAlias(Alias $alias): void
     {
-        $connection = new Connection($this->apiToken, 'email');j
+        $connection = new Connection($this->apiToken, 'email');
         //https://api.hukot.net/rest/%api-token%/email/
         //type PUT
         //head Content-Type:application/x-www-form-urlencoded" -d "autoresponder=1"
