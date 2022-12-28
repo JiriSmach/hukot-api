@@ -2,6 +2,6 @@
 
 namespace JiriSmach/HukotApi/Email;
 
-class Email
+class Email implements EmailInterface
 {
 }
