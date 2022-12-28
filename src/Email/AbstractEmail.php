@@ -97,6 +97,6 @@ abstract class AbstractEmail implements EmailInterface
             'blacklist' => $this->getBlacklist(),
         ];
 
-        return json_encode($array);
+        return \GuzzleHttp\json_encode($array);
     }
 }
