@@ -2,20 +2,14 @@
 
 namespace JiriSmach\HukotApi\Email;
 
-class Alias extends AbstractEmail
+class Mailbox extends AbstractEmail
 {
-
     public function __construct(
     ) {
     }
 
-    public function getPassword(): string
-    {
-        return '';
-    }
-
     public function getType(): int
     {
-        return self::TYPE_ALIAS;
+        return self::TYPE_MAILBOX;
     }
 }
