@@ -3,10 +3,10 @@
     "description": "HUKOT API",
     "type": "library",
     "authors": [
-	{
-	    "name": "Jiri Smach",
-	    "email": "jiri.smach@mensa.cz"
-	}
+        {
+            "name": "Jiri Smach",
+            "email": "jiri.smach@mensa.cz"
+        }
     ],
     "require": {
         "guzzlehttp/guzzle": "^6.5"
