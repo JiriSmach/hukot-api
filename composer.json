@@ -1,7 +1,6 @@
 {
     "name": "jirismach/hukot-api",
     "description": "HUKOT API",
-    "type": "library",
     "authors": [
         {
             "name": "Jiri Smach",
