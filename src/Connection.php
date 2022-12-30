@@ -13,6 +13,7 @@ class Connection
     private string $apiToken;
     private array $urlParams = [];
     private const URL = 'https://api.hukot.net/rest/%api-token%/%method%';
+
     public function __construct(
         string $apiToken,
         string $method
@@ -22,6 +23,12 @@ class Connection
         $this->url = str_replace('%method%', $method, $this->url);
     }
 
+    /**
+     * @param AbstractEmail $emailInterfaces
+     * @return ResponseInterface
+     * @throws ClientException
+     * @throws ServerException
+     */
     public function put(AbstractEmail $emailInterfaces): ResponseInterface
     {
         $client = new Client();
@@ -35,6 +42,11 @@ class Connection
         return $client->send($request);
     }
 
+    /**
+     * @return ResponseInterface
+     * @throws ClientException
+     * @throws ServerException
+     */
     public function get(): ResponseInterface
     {
         $client = new Client();
@@ -59,6 +71,12 @@ class Connection
         return $client->send($request);
     }
 
+    /**
+     * @param AbstractEmail $emailInterfaces
+     * @return ResponseInterface
+     * @throws ClientException
+     * @throws ServerException
+     */
     public function delete(AbstractEmail $emailInterfaces): ResponseInterface
     {
         $client = new Client();
@@ -72,18 +90,23 @@ class Connection
         return $client->send($request);
     }
 
-    public function setUrlParams(array $urlParams)
+    /**
+     * @param array $urlParams
+     * @return void
+     */
+    public function setUrlParams(array $urlParams): void
     {
         $this->urlParams = $urlParams;
     }
 
+    /**
+     * @return string
+     */
     private function getUrl(): string
     {
         $url_parts = parse_url($this->url);
         if (isset($url_parts['query'])) { // Avoid 'Undefined index: query'
             parse_str($url_parts['query'], $this->urlParams);
-        } else {
-            $params = [];
         }
 
         $url_parts['query'] = http_build_query($this->urlParams);

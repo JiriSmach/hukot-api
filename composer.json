@@ -21,6 +21,14 @@
     "autoload": {
         "psr-4": {
             "JiriSmach\\HukotApi\\": "src/"
+        },
+        "exclude-from-classmap": [
+            "/tests/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JiriSmach\\Tests\\HukotApi\\": "tests/"
         }
     }
 }

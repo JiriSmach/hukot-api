@@ -3,6 +3,6 @@
 $email = new \JiriSmach\HukotApi\Email('abcd');
 try {
     print_r($email->listEmails());
-} catch (\Exception $e) {
+} catch (\Throwable $e) {
     echo $e->getMessage();
 }
