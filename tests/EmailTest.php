@@ -2,6 +2,16 @@
 
 namespace JiriSmach\Tests\HukotApi;
 
-class EmailTest
+use PHPUnit\Framework\TestCase;
+use JiriSmach\HukotApi\Email;
+use GuzzleHttp\Exception\ClientException;
+
+class EmailTest extends TestCase
 {
+    public function testListEmails()
+    {
+        $email = new Email('abcd');
+        $this->expectException(ClientException::class);
+        $email->listEmails();
+    }
 }

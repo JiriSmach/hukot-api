@@ -29,7 +29,7 @@ class Connection
      * @throws ClientException
      * @throws ServerException
      */
-    public function put(AbstractEmail $emailInterfaces): ResponseInterface
+    public function putRequest(AbstractEmail $emailInterfaces): ResponseInterface
     {
         $client = new Client();
         $request = new Request(
@@ -47,7 +47,7 @@ class Connection
      * @throws ClientException
      * @throws ServerException
      */
-    public function get(): ResponseInterface
+    public function getRequest(): ResponseInterface
     {
         $client = new Client();
         $request = new Request(
@@ -58,7 +58,7 @@ class Connection
         return $client->send($request);
     }
 
-    public function post(AbstractEmail $emailInterfaces): ResponseInterface
+    public function postRequest(AbstractEmail $emailInterfaces): ResponseInterface
     {
         $client = new Client();
         $request = new Request(
@@ -77,7 +77,7 @@ class Connection
      * @throws ClientException
      * @throws ServerException
      */
-    public function delete(AbstractEmail $emailInterfaces): ResponseInterface
+    public function deleteRequest(AbstractEmail $emailInterfaces): ResponseInterface
     {
         $client = new Client();
         $request = new Request(
@@ -105,7 +105,7 @@ class Connection
     private function getUrl(): string
     {
         $url_parts = parse_url($this->url);
-        if (isset($url_parts['query'])) { // Avoid 'Undefined index: query'
+        if (isset($url_parts['query'])) {
             parse_str($url_parts['query'], $this->urlParams);
         }
 

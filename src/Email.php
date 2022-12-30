@@ -4,6 +4,7 @@ namespace JiriSmach\HukotApi;
 
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\ServerException;
+use JiriSmach\HukotApi\Email\AbstractEmail;
 use JiriSmach\HukotApi\Email\Alias;
 use JiriSmach\HukotApi\Email\BaseEmail;
 use JiriSmach\HukotApi\Email\EmailInterface;
@@ -61,7 +62,7 @@ class Email
     {
         $connection = new Connection($this->apiToken, 'emails');
         $connection->setUrlParams(['page' => $pageNumber]);
-        $responses = $connection->get()->getBody()->getContents();
+        $responses = $connection->getRequest()->getBody()->getContents();
 
         $emailInterface = [];
         foreach ($responses as $response) {
@@ -81,7 +82,7 @@ class Email
     public function getInfoAboutEmail(string $email): EmailInterface
     {
         $connection = new Connection($this->apiToken, 'email');
-        $response = $connection->get()->getBody()->getContents();
+        $response = $connection->getRequest()->getBody()->getContents();
 
         return $this->createEntityFromArray($response);
     }
@@ -97,23 +98,23 @@ class Email
         $connection = new Connection($this->apiToken, 'email');
         $baseMail = new BaseEmail();
         $baseMail->setName($email);
-        $connection->delete($baseMail);
+        $connection->deleteRequest($baseMail);
         //https://api.hukot.net/rest/%api-token%/email/
         //type "delete"
     }
 
     /**
-     * @param EmailInterface $emailInterface
+     * @param AbstractEmail $emailInterface
      * @throws ClientException
      * @throws ServerException
      */
-    public function editMailboxOrAlias(EmailInterface $emailInterfaces): void
+    public function editMailboxOrAlias(AbstractEmail $emailInterfaces): void
     {
         $connection = new Connection($this->apiToken, 'email');
-        $connection->put($emailInterfaces);
+        $connection->putRequest($emailInterfaces);
         //https://api.hukot.net/rest/%api-token%/email/
         //type PUT
-        //head "Content-Type:application/x-www-form-urlencoded" -d "autoresponder=1"
+        //head "Content-Type:application/x-www-form-urlencoded"
     }
 
     /**
@@ -124,10 +125,10 @@ class Email
     public function createMailbox(Mailbox $mailbox): void
     {
         $connection = new Connection($this->apiToken, 'email');
-        $connection->put($mailbox);
+        $connection->putRequest($mailbox);
         //https://api.hukot.net/rest/%api-token%/email/
         //type PUT
-        //head Content-Type:application/x-www-form-urlencoded" -d "autoresponder=1"
+        //head Content-Type:application/x-www-form-urlencoded"
     }
 
     /**
@@ -138,9 +139,9 @@ class Email
     public function createAlias(Alias $alias): void
     {
         $connection = new Connection($this->apiToken, 'email');
-        $connection->put($alias);
+        $connection->putRequest($alias);
         //https://api.hukot.net/rest/%api-token%/email/
         //type PUT
-        //head Content-Type:application/x-www-form-urlencoded" -d "autoresponder=1"
+        //head Content-Type:application/x-www-form-urlencoded"
     }
 }
