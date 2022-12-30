@@ -22,10 +22,5 @@
         "psr-4": {
             "JiriSmach\\HukotApi\\": "src/"
         }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "JiriSmach\\HukotApi\\": "tests/"
-        }
     }
 }

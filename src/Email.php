@@ -2,6 +2,8 @@
 
 namespace JiriSmach\HukotApi;
 
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 use JiriSmach\HukotApi\Email\Alias;
 use JiriSmach\HukotApi\Email\EmailInterface;
 use JiriSmach\HukotApi\Email\Mailbox;
@@ -17,9 +19,15 @@ class Email
 
     }
 
-    public function listEmails(): array
+    /**
+     * @return array
+     * @throws ClientException
+     * @throws ServerException
+     */
+    public function listEmails(int $pageNumber = 0): array
     {
         $connection = new Connection($this->apiToken, 'emails');
+        $connection->setUrlParams(['page' => $pageNumber]);
         $response = $connection->get()->getBody();
         //https://api.hukot.net/rest/%api-token%/emails?[page=%pageNumber%]
         //type "get"
@@ -37,11 +45,23 @@ class Email
         //https://api.hukot.net/rest/%api-token%/email/
         //type "get"
 
+        switch ($response['type']) {
+            case EmailInterface::TYPE_MAILBOX:
+                $emailInterface = new Mailbox();
+                break;
+            case EmailInterface::TYPE_ALIAS:
+                $emailInterface = new Alias();
+                break;
+            default:
+                throw new \Exception('switch error');
+                break;
+        }
+/*
         $emailInterface = match ($response['type']) {
             EmailInterface::TYPE_MAILBOX => new Mailbox(),
             EmailInterface::TYPE_ALIAS => new Alias(),
         };
-
+*/
         $emailInterface->setName($email);
 
         return $emailInterface;
