@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "JiriSmach\\": "src/"
+            "JiriSmach\\HukotApi\\": "src/"
         }
     }
 }
