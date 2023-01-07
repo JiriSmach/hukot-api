@@ -32,12 +32,7 @@ class Connection
     public function putRequest(AbstractEmail $emailInterfaces): ResponseInterface
     {
         $client = new Client();
-        $request = new Request(
-            'PUT',
-            $this->getUrl(),
-            null,
-            $emailInterfaces->getJson()
-        );
+        $request = $this->createRequest('PUT', $emailInterfaces);
 
         return $client->send($request);
     }
@@ -50,10 +45,7 @@ class Connection
     public function getRequest(): ResponseInterface
     {
         $client = new Client();
-        $request = new Request(
-            'GET',
-            $this->getUrl(),
-        );
+        $request = $this->createRequest('GET');
 
         return $client->send($request);
     }
@@ -61,12 +53,7 @@ class Connection
     public function postRequest(AbstractEmail $emailInterfaces): ResponseInterface
     {
         $client = new Client();
-        $request = new Request(
-            'POST',
-            $this->getUrl(),
-            null,
-            $emailInterfaces->getJson()
-        );
+        $request = $this->createRequest('POST', $emailInterfaces);
 
         return $client->send($request);
     }
@@ -80,12 +67,7 @@ class Connection
     public function deleteRequest(AbstractEmail $emailInterfaces): ResponseInterface
     {
         $client = new Client();
-        $request = new Request(
-            'DELETE',
-            $this->getUrl(),
-            null,
-            $emailInterfaces->getJson()
-        );
+        $request = $this->createRequest('DELETE', $emailInterfaces);
 
         return $client->send($request);
     }
@@ -112,5 +94,15 @@ class Connection
         $url_parts['query'] = http_build_query($this->urlParams);
 
         return $url_parts['scheme'] . '://' . $url_parts['host'] . $url_parts['path'] . '?' . $url_parts['query'];
+    }
+
+    private function createRequest(string $method, ?AbstractEmail $emailInterfaces = null): Request
+    {
+        return new Request(
+            $method,
+            $this->getUrl(),
+            null,
+            $emailInterfaces ? $emailInterfaces->getJson() : null;
+        );
     }
 }
