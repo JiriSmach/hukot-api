@@ -102,7 +102,7 @@ class Connection
             $method,
             $this->getUrl(),
             null,
-            $emailInterfaces ? $emailInterfaces->getJson() : null;
+            $emailInterfaces ? $emailInterfaces->getJson() : null
         );
     }
 }
